@@ -1,0 +1,22 @@
+{
+  "name": "team3-fe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "test": "gulp test"
+  },
+  "repository": "git@git.baijiahulian.com:training-camp-2019/team3-fe.git",
+  "license": "MIT",
+  "dependencies": {
+    "del": "^5.0.0",
+    "eslint": "^6.1.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-imagemin": "^6.0.0",
+    "gulp-less": "^4.0.1",
+    "gulp-rename": "^1.4.0",
+    "yargs": "^13.3.0"
+  }
+}
