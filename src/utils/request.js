@@ -19,13 +19,22 @@ function requestWithCookie(url = '', data = '', fn, method = 'get', header = {})
             'Cookie': 'ticket=' + app.globalData.ticket
         },
         success: function (res) {
-            fn(res);
+            if (res && res.success) {
+                // 直接将res.data传给回调函数，减少调用链条长度
+                fn(res.data);
+            } else {
+                wx.showToast({
+                    title: res.msg ? res.msg : '网络错误',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: true,
+                });
+            }
         },
         fail: function(error) {
             wx.showToast({
                 title: error.data.msg ? error.data.msg : '网络错误',
                 icon: 'none',
-                image: '',
                 duration: 1500,
                 mask: true,
             });
@@ -42,13 +51,22 @@ function requestWithNoCookie(url = '', data = '', fn, method = 'get', header = {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {
-            fn(res);
+            if (res && res.success) {
+                // 直接将res.data传给回调函数，减少调用链条长度
+                fn(res.data);
+            } else {
+                wx.showToast({
+                    title: res.msg ? res.msg : '网络错误',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: true,
+                });
+            }
         },
         fail: function(error) {
             wx.showToast({
                 title: error.data.msg ? error.data.msg : '网络错误',
                 icon: 'none',
-                image: '',
                 duration: 1500,
                 mask: true,
             });
