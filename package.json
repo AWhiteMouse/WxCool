@@ -1,14 +1,24 @@
 {
   "name": "wx-cool",
   "version": "1.0.0",
-  "author": "carr",
+  "author": "1586671591@qq.com",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"onchange -i -k '**/*.js' -- node server.js\" \"gulp dev\"",
     "build": "gulp build",
     "test": "gulp test"
   },
-  "repository": "git@git.baijiahulian.com:training-camp-2019/team3-fe.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AWhiteMouse/WxCool.git"
+  },
+  "keywords": [
+    "hapi",
+    "colorUI",
+    "less",
+    "gulp",
+    "eslint"
+  ],
   "license": "MIT",
   "dependencies": {
     "concurrently": "^4.1.1",
