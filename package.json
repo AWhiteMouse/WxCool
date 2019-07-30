@@ -1,6 +1,7 @@
 {
-  "name": "team3-fe",
+  "name": "wx-cool",
   "version": "1.0.0",
+  "author": "carr",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"onchange -i -k '**/*.js' -- node server.js\" \"gulp dev\"",
