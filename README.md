@@ -44,9 +44,9 @@ yarn install
 ### 编译
 
 ```shell
-gulp dev：开发
-gulp test：测试环境
-gulp build：线上环境
+npm run dev：开发
+npm run test：测试环境
+npm run build：线上环境
 ```
 
 ## 目录结构
@@ -58,11 +58,12 @@ gulp build：线上环境
 > + src/utils/ajaxConfig.js：请求接口配置文件（不附带域名以及固定前缀）
 > + src/utils/config.js：数据字典配置
 > + src/utils/imgConfig.js：图片路径配置
-> + src/utils/request.js：请求封装、mock数据
+> + src/utils/request.js：请求封装
 > + src/utils/util.js：公共方法
 > + src/env/development.js：开发环境请求地址配置
 > + src/env/production.js：线上环境请求地址配置
 > + src/env/testing.js：测试环境请求地址配置
+> + server.js：Hapi服务mock数据
 
 ## 代码规范 & 注意事项
 

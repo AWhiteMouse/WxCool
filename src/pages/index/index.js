@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp();
 const IMGCONFIG = require('../../utils/imgConfig');
+const AJAXCONFIG = require('../../utils/ajaxConfig');
 const REQUEST = require('../../utils/request');
 
 Page({
@@ -10,12 +11,16 @@ Page({
     },
 
     onLoad: function () {
-        REQUEST.test(
+        // 👇这里是发送请求的示例
+        REQUEST.requestWithCookie(
+            AJAXCONFIG.TEST,
             {},
             function(res) {
                 console.info(res);
             }
         );
+
+        // 👇以下为微信小程序自动生成代码，可根据实际情况进行操作
         if(app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
