@@ -1,4 +1,4 @@
-# WxCool [![NPM Version](https://img.shields.io/npm/v/wx-cool.svg?style=flat)](https://npmjs.org/package/wx-cool) ![repo size](https://img.shields.io/github/repo-size/awhitemouse/wxcool)
+# WxCool [![NPM Version](https://img.shields.io/npm/v/wx-cool.svg?style=flat)](https://npmjs.org/package/wx-cool) ![repo size](https://img.shields.io/github/repo-size/awhitemouse/wxcool) [![NPM Version](https://img.shields.io/npm/l/wx-cool)](https://npmjs.org/package/wx-cool)
 
 > 致力于打造一套简洁高效的小程序脚手架
 
@@ -20,18 +20,11 @@ gulp -v
 
 ## 如何使用
 
-### 克隆项目
+### 安装
 
 ```shell
-git clone git@github.com:AWhiteMouse/WxCool.git
+npm i wx-cool
 ```
-
-### 重新指定Git仓库远程路径
-
-> 1. 进入项目根目录
-> 2. git remote 查看所有的远程仓库
-> 3. 然后 git remote rm xxx（删掉xxx远程仓库）
-> 4. git remote add origin xxxxxx（重新设置名为origin地址为xxxxxx的远程仓库）
 
 ### 依赖加载
 
@@ -44,13 +37,13 @@ yarn install
 ### 配置
 
 > + server.js：Hapi服务mock数据，每个接口都需要配置路由数据
-> + project.config.json：项目配置文件，需要填写appid
+> + src/project.config.json：项目配置文件，需要填写appid
 > + src/utils/ajaxConfig.js：请求接口配置文件（不附带域名以及固定前缀）。所有的请求接口都在这里配置
 > + src/utils/config.js：数据字典配置，所有的数据字典都在这里配置
 > + src/utils/imgConfig.js：图片路径配置，所有的图片路径都在这里配置
 > + src/utils/request.js：请求封装，已封装完成，基本无需更改
 > + src/utils/util.js：公共方法
-> + src/env/development.js：开发环境请求地址配置，此处配置的是server.js中的域名
+> + src/env/development.js：开发环境请求地址配置，此处配置的是server.js中的域名，无需修改
 > + src/env/production.js：线上环境请求地址配置
 > + src/env/testing.js：测试环境请求地址配置
 
