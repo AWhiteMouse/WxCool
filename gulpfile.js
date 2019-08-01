@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const less = require('gulp-less');
+const cssmin = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const del = require('del');
 const imagemin = require('gulp-imagemin');
@@ -82,6 +83,7 @@ const wxssLess = () => {
     return gulp
         .src(lessFiles)
         .pipe(less())
+        .pipe(cssmin())
         .pipe(rename({ extname: '.wxss' }))
         .pipe(gulp.dest(distPath));
 };

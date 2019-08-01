@@ -30,7 +30,9 @@ App({
         });
     },
     globalData: {
+        // T票
         ticket: null,
+        // 用户信息（头像、昵称等）
         userInfo: null
     }
 });
