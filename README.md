@@ -20,10 +20,10 @@ gulp -v
 
 ## 如何使用
 
-### 安装
+### 下载
 
 ```shell
-npm i wx-cool
+git clone git@github.com:AWhiteMouse/WxCool.git
 ```
 
 ### 依赖加载
