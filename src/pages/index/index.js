@@ -12,7 +12,7 @@ Page({
 
     onLoad: function () {
         // 👇这里是发送请求的示例
-        REQUEST.requestWithCookie(
+        REQUEST.request(
             AJAXCONFIG.TEST,
             {},
             function(res) {

@@ -1,7 +1,21 @@
 const Hapi = require('hapi');
 const AJAXCONFIG = require('./src/utils/ajaxConfig');
 
-function router(server, path, data, method) {
+// 定义服务
+const server = Hapi.server({
+    // 配置端口：3000
+    port: 3000,
+    // 配置访问域：localhost
+    host: 'localhost',
+    // 配置允许跨域
+    routes: {
+        cors: {
+            origin: ['*']
+        }
+    }
+});
+
+function router(path, data, method) {
     return server.route({
         path: path,
         method: method ? method : 'GET',
@@ -16,19 +30,6 @@ function router(server, path, data, method) {
     });
 }
 
-const server = Hapi.server({
-    // 配置端口：3000
-    port: 3000,
-    // 配置访问域：localhost
-    host: 'localhost',
-    // 配置允许跨域
-    routes: {
-        cors: {
-            origin: ['*']
-        }
-    }
-});
-
 const init = async () => {
     // server.route()配置路由
 
@@ -42,10 +43,10 @@ const init = async () => {
     });
 
     // 首页“/test”接口测试
-    router(server, AJAXCONFIG.TEST, {
+    router(AJAXCONFIG.TEST, {
         name: 'WxCool'
     });
-    // 上面的请求经过封装，👇下面的是原生的
+    // 👆上面的请求经过封装，👇下面的是原生的
     // server.route({
     //     path: AJAXCONFIG.TEST,
     //     method: 'GET',

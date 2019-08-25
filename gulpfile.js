@@ -1,11 +1,15 @@
 const gulp = require('gulp');
+const path = require('path');
+const del = require('del');
 const less = require('gulp-less');
+const htmlmin = require('gulp-htmlmin');
 const cssmin = require('gulp-clean-css');
 const rename = require('gulp-rename');
-const del = require('del');
 const imagemin = require('gulp-imagemin');
-const path = require('path');
+const jsonminify = require('gulp-jsonminify');
 const eslint = require('gulp-eslint');
+const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
 
 const srcPath = './src/**';
 const distPath = './dist/';
@@ -33,6 +37,10 @@ gulp.task('clean', done => {
 const wxss = () => {
     return gulp
         .src(wxssFiles, { since: gulp.lastRun(wxss) })
+        .pipe(autoprefixer([
+            'iOS >= 8',
+            'Android >= 4.1'
+        ]))
         .pipe(gulp.dest(distPath));
 };
 gulp.task(wxss);
@@ -41,6 +49,13 @@ gulp.task(wxss);
 const wxml = () => {
     return gulp
         .src(wxmlFiles, { since: gulp.lastRun(wxml) })
+        .pipe(sourcemaps.init())
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeComments: true,
+            keepClosingSlash: true
+        }))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(distPath));
 };
 gulp.task(wxml);
@@ -49,8 +64,10 @@ gulp.task(wxml);
 const js = () => {
     return gulp
         .src(jsFiles, { since: gulp.lastRun(js) })
+        .pipe(sourcemaps.init())
         .pipe(eslint())
         .pipe(eslint.format())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(distPath));
 };
 gulp.task(js);
@@ -74,6 +91,7 @@ gulp.task('prodEnv', envJs('production'));
 const json = () => {
     return gulp
         .src(jsonFiles, { since: gulp.lastRun(json) })
+        .pipe(jsonminify())
         .pipe(gulp.dest(distPath));
 };
 gulp.task(json);
@@ -83,6 +101,10 @@ const wxssLess = () => {
     return gulp
         .src(lessFiles)
         .pipe(less())
+        .pipe(autoprefixer([
+            'iOS >= 8',
+            'Android >= 4.1'
+        ]))
         .pipe(cssmin())
         .pipe(rename({ extname: '.wxss' }))
         .pipe(gulp.dest(distPath));
