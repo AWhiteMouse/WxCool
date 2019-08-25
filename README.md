@@ -1,4 +1,4 @@
-# WxCool [![NPM Version](https://img.shields.io/npm/v/wx-cool.svg?style=flat)](https://npmjs.org/package/wx-cool) ![repo size](https://img.shields.io/github/repo-size/awhitemouse/wxcool)
+# WxCool [![NPM Version](https://img.shields.io/npm/v/wx-cool.svg?style=flat)](https://npmjs.org/package/wx-cool) ![repo size](https://img.shields.io/github/repo-size/awhitemouse/wxcool) [![license](https://img.shields.io/npm/l/wx-cool)](https://npmjs.org/package/wx-cool)
 
 > 致力于打造一套简洁高效的小程序脚手架
 
