@@ -1,0 +1,9 @@
+<view class="wheel-container">
+    <view class="wheel" wx:for="{{dataList}}" key="{{item.id}}">
+        <image wx:if="{{showImage}}" class="wheel-sculpture" src="{{item.img}}" />
+        <text
+            class="wheel-text"
+            style="max-width: {{maxWidth}}rpx;"
+        >{{item.name}}{{publicMsg}}</text>
+    </view>
+</view>

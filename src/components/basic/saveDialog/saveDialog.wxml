@@ -1,0 +1,5 @@
+<view hidden="{{flag}}">
+  <view class='popup-container'>
+    <view class="wx-popup-con">{{innerText}}</view>
+  </view>
+</view>
