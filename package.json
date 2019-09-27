@@ -49,8 +49,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "hapi": "^18.1.0",
-    "onchange": "^6.1.0",
-    "yargs": "^14.0.0"
+    "onchange": "^6.1.0"
   },
   "dependencies": {}
 }
