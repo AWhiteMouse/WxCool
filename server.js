@@ -42,7 +42,7 @@ const init = async () => {
         msg: `welcome ${request.query.id}`
     }, 'post');
 
-    // 获取url参数方式一：请求：http://localhost:3000/api/welcome/1
+    // 获取url参数方式二：请求：http://localhost:3000/api/welcome/1
     router(AJAXCONFIG.WELCOME + '/{id}', {
         msg: `${request.params.id},welcome to use hapi!`
     }, 'post');
