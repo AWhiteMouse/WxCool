@@ -140,4 +140,3 @@ exports.clean = clean;
 exports.dev = dev;
 exports.test = test;
 exports.build = build;
-exports.default = build;
