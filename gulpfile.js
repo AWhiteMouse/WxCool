@@ -1,15 +1,16 @@
-const gulp = require('gulp');
-const path = require('path');
-const del = require('del');
+const { src, dest, watch, parallel, series, lastRun } = require('gulp');
 const less = require('gulp-less');
-const htmlmin = require('gulp-htmlmin');
-const cssmin = require('gulp-clean-css');
+const babel = require('gulp-babel');
 const rename = require('gulp-rename');
+const eslint = require('gulp-eslint');
 const imagemin = require('gulp-imagemin');
 const jsonminify = require('gulp-jsonminify');
-const eslint = require('gulp-eslint');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
+const htmlmin = require('gulp-htmlmin');
+const cssmin = require('gulp-clean-css');
+const uglify = require('gulp-uglify');
+const del = require('del');
 
 const srcPath = './src/**';
 const distPath = './dist/';
@@ -28,27 +29,24 @@ const imgFiles = [
 ];
 
 /* 清除dist目录 */
-gulp.task('clean', done => {
+function clean(done) {
     del.sync(['dist/**/*']);
     done();
-});
+}
 
 /* 编译wxss文件 */
-const wxss = () => {
-    return gulp
-        .src(wxssFiles, { since: gulp.lastRun(wxss) })
+function wxss() {
+    return src(wxssFiles, { since: lastRun(wxss) })
         .pipe(autoprefixer([
             'iOS >= 8',
             'Android >= 4.1'
         ]))
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(wxss);
+        .pipe(dest(distPath));
+}
 
 /* 编译wxml文件 */
-const wxml = () => {
-    return gulp
-        .src(wxmlFiles, { since: gulp.lastRun(wxml) })
+function wxml() {
+    return src(wxmlFiles, { since: lastRun(wxml) })
         .pipe(sourcemaps.init())
         .pipe(htmlmin({
             collapseWhitespace: true,
@@ -56,50 +54,54 @@ const wxml = () => {
             keepClosingSlash: true
         }))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(wxml);
+        .pipe(dest(distPath));
+}
 
 /* 编译JS文件 */
-const js = () => {
-    return gulp
-        .src(jsFiles, { since: gulp.lastRun(js) })
+function js() {
+    return src(jsFiles, { since: lastRun(js) })
         .pipe(sourcemaps.init())
         .pipe(eslint())
         .pipe(eslint.format())
+        .pipe(babel())
+        .pipe(uglify())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(js);
+        .pipe(dest(distPath));
+}
 
 /* 配置请求地址相关 */
-const envJs = (env) => {
+function envJs(env) {
     return () => {
-        return gulp
-            .src(`./src/env/${env}.js`)
+        return src(`./src/env/${env}.js`)
             .pipe(eslint())
             .pipe(eslint.format())
             .pipe(rename('env.js'))
-            .pipe(gulp.dest(distPath));
+            .pipe(dest(distPath));
     };
-};
-gulp.task('devEnv', envJs('development'));
-gulp.task('testEnv', envJs('testing'));
-gulp.task('prodEnv', envJs('production'));
+}
+
+function devEnv() {
+    return envJs('development');
+}
+
+function testEnv() {
+    return envJs('testing');
+}
+
+function prodEnv() {
+    return envJs('production');
+}
 
 /* 编译json文件 */
-const json = () => {
-    return gulp
-        .src(jsonFiles, { since: gulp.lastRun(json) })
+function json() {
+    return src(jsonFiles, { since: lastRun(json) })
         .pipe(jsonminify())
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(json);
+        .pipe(dest(distPath));
+}
 
 /* 编译less文件 */
-const wxssLess = () => {
-    return gulp
-        .src(lessFiles)
+function wxssLess() {
+    return src(lessFiles)
         .pipe(less())
         .pipe(autoprefixer([
             'iOS >= 8',
@@ -107,130 +109,49 @@ const wxssLess = () => {
         ]))
         .pipe(cssmin())
         .pipe(rename({ extname: '.wxss' }))
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(wxssLess);
+        .pipe(dest(distPath));
+}
 
 /* 编译压缩图片 */
-const img = () => {
-    return gulp
-        .src(imgFiles, { since: gulp.lastRun(img) })
+function img() {
+    return src(imgFiles, { since: lastRun(img) })
         .pipe(imagemin())
-        .pipe(gulp.dest(distPath));
-};
-gulp.task(img);
+        .pipe(dest(distPath));
+}
 
 /* watch */
-gulp.task('watch', () => {
+function watchUpdate() {
     let watchLessFiles = [...lessFiles];
     watchLessFiles.pop();
-    gulp.watch(watchLessFiles, wxssLess);
-    gulp.watch(wxssFiles, wxss);
-    gulp.watch(jsFiles, js);
-    gulp.watch(imgFiles, img);
-    gulp.watch(jsonFiles, json);
-    gulp.watch(wxmlFiles, wxml);
-});
-
+    watch(watchLessFiles, wxssLess);
+    watch(wxssFiles, wxss);
+    watch(jsFiles, js);
+    watch(imgFiles, img);
+    watch(jsonFiles, json);
+    watch(wxmlFiles, wxml);
+}
 
 /* build */
-gulp.task(
-    'build',
-    gulp.series('clean', gulp.parallel('wxml', 'js', 'json', 'wxss', 'wxssLess', 'img', 'prodEnv'))
+const build = series(
+    clean,
+    parallel(wxml, js, json, wxss, wxssLess, img, prodEnv)
 );
 
 /* dev */
-gulp.task('dev', gulp.series('clean', gulp.parallel('wxml', 'js', 'json', 'wxss', 'wxssLess', 'img', 'devEnv'), 'watch'));
+const dev = series(
+    clean,
+    parallel(wxml, js, json, wxss, wxssLess, img, devEnv),
+    watchUpdate
+);
 
 /* test */
-gulp.task('test', gulp.series('clean', gulp.parallel('wxml', 'js', 'json', 'wxss', 'wxssLess', 'img', 'testEnv')));
+const test = series(
+    clean,
+    parallel(wxml, js, json, wxss, wxssLess, img, testEnv)
+);
 
-/**
- * auto 自动创建page or template or component
- *  -s 源目录（默认为_template)
- * @example
- *   gulp auto -p mypage           创建名称为mypage的page文件
- *   gulp auto -t mytpl            创建名称为mytpl的template文件
- *   gulp auto -c mycomponent      创建名称为mycomponent的component文件
- *   gulp auto -s index -p mypage  创建名称为mypage的page文件
- */
-const auto = done => {
-    const yargs = require('yargs')
-        .example('gulp auto -p mypage', '创建名为mypage的page文件')
-        .example('gulp auto -t mytpl', '创建名为mytpl的template文件')
-        .example('gulp auto -c mycomponent', '创建名为mycomponent的component文件')
-        .example(
-            'gulp auto -s index -p mypage',
-            '复制pages/index中的文件创建名称为mypage的页面'
-        )
-        .option({
-            s: {
-                alias: 'src',
-                default: '_template',
-                describe: 'copy的模板',
-                type: 'string'
-            },
-            p: {
-                alias: 'page',
-                describe: '生成的page名称',
-                conflicts: ['t', 'c'],
-                type: 'string'
-            },
-            t: {
-                alias: 'template',
-                describe: '生成的template名称',
-                type: 'string',
-                conflicts: ['c']
-            },
-            c: {
-                alias: 'component',
-                describe: '生成的component名称',
-                type: 'string'
-            },
-            version: { hidden: true },
-            help: { hidden: true }
-        })
-        .fail(msg => {
-            done();
-            console.error('创建失败!!!');
-            console.error(msg);
-            console.error('请按照如下命令执行...');
-            yargs.parse(['--msg']);
-            return;
-        })
-        .help('msg');
-
-    const argv = yargs.argv;
-    const source = argv.s;
-    const typeEnum = {
-        p: 'pages',
-        t: 'templates',
-        c: 'components'
-    };
-    let hasParams = false;
-    let name, type;
-    for (let key in typeEnum) {
-        hasParams = hasParams || !!argv[key];
-        if (argv[key]) {
-            name = argv[key];
-            type = typeEnum[key];
-        }
-    }
-
-    if (!hasParams) {
-        done();
-        yargs.parse(['--msg']);
-    }
-
-    const root = path.join(__dirname, 'src', type);
-    return gulp
-        .src(path.join(root, source, '*.*'))
-        .pipe(
-            rename({
-                dirname: name,
-                basename: name
-            })
-        )
-        .pipe(gulp.dest(path.join(root)));
-};
-gulp.task(auto);
+exports.clean = clean;
+exports.dev = dev;
+exports.test = test;
+exports.build = build;
+exports.default = build;
