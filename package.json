@@ -4,9 +4,9 @@
   "author": "1586671591@qq.com",
   "main": "app.js",
   "scripts": {
-    "dev": "concurrently \"onchange -i -k '**/*.js' -- node server.js\" \"gulp dev\"",
-    "build": "gulp build",
-    "test": "gulp test",
+    "dev": "cross-env NODE_ENV=development concurrently \"onchange -i -k '**/*.js' -- node server.js\" \"gulp dev\"",
+    "test": "cross-env NODE_ENV=testing gulp test",
+    "build": "cross-env NODE_ENV=production gulp build",
     "clean": "gulp clean"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/register": "^7.6.2",
     "concurrently": "^4.1.2",
+    "cross-env": "^6.0.0",
     "del": "^5.1.0",
     "eslint": "^6.4.0",
     "gulp": "^4.0.2",

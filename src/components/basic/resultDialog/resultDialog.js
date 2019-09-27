@@ -1,34 +1,34 @@
 Component({
-  properties: {
-    resultData: {
-      type: Number
+    properties: {
+        resultData: {
+            type: Number
+        },
+        imgUrl: {
+            type: String
+        }
     },
-    imgUrl: {
-      type: String
-    }
-  },
-  data: {
-    flag: true
-  },
-  methods: {
-    hidePopup() {
-      this.setData({
+    data: {
         flag: true
-      });
     },
-      
-    showPopup() {
-      this.setData({
-        flag: false
-      });
-    },
-    cancel() {
-      this.setData({
-        flag: true
-      });
-    },
-    next() {
-      this.triggerEvent('next');
+    methods: {
+        hidePopup() {
+            this.setData({
+                flag: true
+            });
+        },
+          
+        showPopup() {
+            this.setData({
+                flag: false
+            });
+        },
+        cancel() {
+            this.setData({
+                flag: true
+            });
+        },
+        next() {
+            this.triggerEvent('next');
+        }
     }
-  }
 });

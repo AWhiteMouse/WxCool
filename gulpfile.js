@@ -70,26 +70,12 @@ function js() {
 }
 
 /* 配置请求地址相关 */
-function envJs(env) {
-    return () => {
-        return src(`./src/env/${env}.js`)
-            .pipe(eslint())
-            .pipe(eslint.format())
-            .pipe(rename('env.js'))
-            .pipe(dest(distPath));
-    };
-}
-
-function devEnv() {
-    return envJs('development');
-}
-
-function testEnv() {
-    return envJs('testing');
-}
-
-function prodEnv() {
-    return envJs('production');
+function envJs() {
+    return src(`./src/env/${process.env.NODE_ENV}.js`)
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(rename('env.js'))
+        .pipe(dest(distPath));
 }
 
 /* 编译json文件 */
@@ -134,20 +120,20 @@ function watchUpdate() {
 /* build */
 const build = series(
     clean,
-    parallel(wxml, js, json, wxss, wxssLess, img, prodEnv)
+    parallel(wxml, js, json, wxss, wxssLess, img, envJs)
 );
 
 /* dev */
 const dev = series(
     clean,
-    parallel(wxml, js, json, wxss, wxssLess, img, devEnv),
+    parallel(wxml, js, json, wxss, wxssLess, img, envJs),
     watchUpdate
 );
 
 /* test */
 const test = series(
     clean,
-    parallel(wxml, js, json, wxss, wxssLess, img, testEnv)
+    parallel(wxml, js, json, wxss, wxssLess, img, envJs)
 );
 
 exports.clean = clean;
