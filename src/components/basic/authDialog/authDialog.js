@@ -1,4 +1,4 @@
-const IMGCONFIG = require('../../utils/imgConfig');
+const IMGCONFIG = require('../../../utils/imgConfig');
 const app = getApp();
 
 Component({
