@@ -3,6 +3,7 @@
  */
 const AJAXCONFIG = {
     TEST: '/test',
+    WELCOME: '/api/welcome'
 };
 
 module.exports = AJAXCONFIG;
