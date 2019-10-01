@@ -7,9 +7,7 @@
 ### 全局安装Gulp-cli
 
 ```shell
-npm install -g gulp-cli
-or
-yarn add -g gulp-cli
+npm install gulp-cli create-wxcool-cli -g
 ```
 
 ### 检查Gulp-cli是否安装成功
