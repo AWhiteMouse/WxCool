@@ -1,17 +1,12 @@
 {
   "name": "wx-cool",
   "version": "1.0.2",
-  "author": "1586671591@qq.com",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development concurrently \"onchange -i -k '**/*.js' -- node server.js\" \"gulp dev\"",
     "test": "cross-env NODE_ENV=testing gulp test",
     "build": "cross-env NODE_ENV=production gulp build",
     "clean": "gulp clean"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:AWhiteMouse/WxCool.git"
   },
   "keywords": [
     "hapi",
@@ -21,13 +16,9 @@
     "eslint"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/AWhiteMouse/WxCool/issues"
-  },
   "files": [
     "src"
   ],
-  "homepage": "https://github.com/AWhiteMouse/WxCool",
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",

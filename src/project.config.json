@@ -1,5 +1,5 @@
 {
-	"description": "项目配置文件",
+	"description": "",
 	"packOptions": {
 		"ignore": []
 	},
@@ -15,7 +15,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
 	"appid": "",
-	"projectname": "team3-fe",
+	"projectname": "",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
