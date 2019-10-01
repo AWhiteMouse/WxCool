@@ -15,10 +15,10 @@ const server = Hapi.server({
     }
 });
 
-function router(path, data, method) {
+function router(path, data, method = 'GET') {
     return server.route({
         path: path,
-        method: method ? method : 'GET',
+        method: method,
         handler() {
             return {
                 code: 200,
@@ -37,15 +37,35 @@ const init = async () => {
         name: 'WxCool'
     });
 
-    // 获取url参数方式一：请求：http://localhost:3000/api/welcome?id=1
-    router(AJAXCONFIG.WELCOME, {
-        msg: `welcome ${request.query.id}`
-    }, 'post');
+    // 获取url参数方式一：请求：http://localhost:3000/api/welcome?name=chenxin
+    server.route({
+        path: '/api/welcome',
+        method: 'GET',
+        handler(request) {
+            return {
+                code: 200,
+                success: true,
+                data: {
+                    msg: `welcome ${request.query.name}`
+                }
+            }
+        }
+    });
 
-    // 获取url参数方式二：请求：http://localhost:3000/api/welcome/1
-    router(AJAXCONFIG.WELCOME + '/{id}', {
-        msg: `${request.params.id},welcome to use hapi!`
-    }, 'post');
+    // 获取url参数方式一：请求：http://localhost:3000/api/welcome/chenxin
+    server.route({
+        path: '/api/welcome/{name}',
+        method: 'GET',
+        handler(request) {
+            return {
+                code: 200,
+                success: true,
+                data: {
+                    msg: `${request.params.name},welcome to use hapi!`
+                }
+            };
+        }
+    });
 
     await server.start();
     // console.log(`server running at: ${server.info.uri}`);
