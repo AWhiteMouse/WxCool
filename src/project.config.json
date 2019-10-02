@@ -1,5 +1,6 @@
 {
-	"description": "",
+	"projectname": "{{ projectname }}",
+	"description": "{{ description }}",
 	"packOptions": {
 		"ignore": []
 	},
@@ -14,8 +15,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
-	"appid": "",
-	"projectname": "",
+	"appid": "{{ appid }}",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
