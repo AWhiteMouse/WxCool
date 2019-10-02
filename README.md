@@ -32,19 +32,6 @@ or
 yarn install
 ```
 
-### 配置
-
-> + server.js：Hapi服务mock数据，每个接口都需要配置路由数据
-> + src/project.config.json：项目配置文件，需要填写appid
-> + src/utils/ajaxConfig.js：请求接口配置文件（不附带域名以及固定前缀）。所有的请求接口都在这里配置
-> + src/utils/config.js：数据字典配置，所有的数据字典都在这里配置
-> + src/utils/imgConfig.js：图片路径配置，所有的图片路径都在这里配置
-> + src/utils/request.js：请求封装，已封装完成，基本无需更改
-> + src/utils/util.js：公共方法
-> + src/env/development.js：开发环境请求地址配置，此处配置的是server.js中的域名，无需修改
-> + src/env/production.js：线上环境请求地址配置
-> + src/env/testing.js：测试环境请求地址配置
-
 ### 编译
 
 ```shell
@@ -52,6 +39,19 @@ npm run dev：开发环境
 npm run test：测试环境
 npm run build：线上环境
 ```
+
+### 配置
+
+> + server.js：Hapi服务mock数据
+> + src/project.config.json：项目配置文件
+> + src/utils/ajaxConfig.js：请求接口配置文件
+> + src/utils/config.js：数据字典配置
+> + src/utils/imgConfig.js：图片路径配置
+> + src/utils/request.js：请求封装
+> + src/utils/util.js：公共方法
+> + src/env/development.js：开发环境请求地址配置
+> + src/env/production.js：线上环境请求地址配置
+> + src/env/testing.js：测试环境请求地址配置
 
 ## 目录结构
 
