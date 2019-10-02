@@ -4,29 +4,29 @@
 
 ## 准备工作
 
-### 全局安装Gulp-cli
+### 全局安装Gulp-cli、Create-wxcool-cli
 
 ```shell
 npm install gulp-cli create-wxcool-cli -g
 ```
 
-### 检查Gulp-cli是否安装成功
+### 检查Gulp-cli、Create-wxcool-cli是否安装成功
 
 ```shell
 gulp -v
+
+create-wxcool -v
 ```
 
 ## 如何使用
 
-### 下载
+### 创建项目
 
 ```shell
-git clone git@github.com:AWhiteMouse/WxCool.git
-```
+create-wxcool i <app-name>
 
-### 依赖加载
+cd <app-name>
 
-```shell
 npm install
 or
 yarn install
