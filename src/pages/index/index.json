@@ -1,9 +1,5 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "enter-group-dialog": "/components/basic/replyDialog/replyDialog",
-    "auth-dialog": "/components/basic/authDialog/authDialog",
-    "finish-dialog": "/components/basic/returnDialog/returnDialog",
-    "wheel":"/components/basic/wheel/wheel"
   }
 }
