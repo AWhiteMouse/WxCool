@@ -1,8 +1,0 @@
-<view class="wx-popup" hidden="{{flag}}">
-    <view class='popup-container'>
-        <view class="wx-x" bindtap="cancel">×</view>
-        <view class="wx-popup-con">+{{resultData}}积分</view>
-        <image class="wx-popup-img" src="{{imgUrl}}"></image>
-        <button class="wx-popup-btn" bindtap="next">加入学习群</button>
-    </view>
-</view>
